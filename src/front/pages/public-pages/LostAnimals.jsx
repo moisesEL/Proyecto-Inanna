@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 export const LostAnimals = () => {
 
     const [petList, setPetList] = useState([])
+    const currentUserId = localStorage.getItem("userId");
 
     const testFetchMascotas = async () => {
         const response = await getAllPetPosts()
@@ -37,50 +38,62 @@ export const LostAnimals = () => {
 
     return (
         <div className="container py-4">
-            <div className="row g-4">
-                {newList.map(pet => (
-                    <div key={pet.id} className="col-12 col-md-6 col-lg-4">
-                        <div className="card h-100 shadow-sm">
-                            <img
-                                src={
-                                    pet.images?.[0] ||
-                                    'https://loremipsum.imgix.net/2uTVCl4WzwqJP5ywFNzukO/8acb2b2cf872f3f5706c4bd63295ba31/placekitten.jpeg?w=1280&q=60&auto=format,compress'
-                                }
-                                className="card-img-top"
-                                alt={pet.name}
-                                style={{ height: '200px', objectFit: 'cover' }}
-                            />
+            {newList.length === 0 ? (
+                <div className="empty-state-container">
+                    <i className="bi bi-search empty-state-icon"></i>
+                    <h3 className="empty-state-title">No hay mascotas perdidas</h3>
+                    <p className="empty-state-text">
+                        Afortunadamente no hay reportes de mascotas perdidas guardados en nuestra plataforma.
+                    </p>
+                </div>
+            ) : (
+                <div className="row g-4">
+                    {newList.map(pet => (
+                        <div key={pet.id} className="col-12 col-md-6 col-lg-4">
+                            <div className="card h-100 shadow-sm hover-card border-0">
+                                <img
+                                    src={
+                                        pet.images?.[0] ||
+                                        'https://loremipsum.imgix.net/2uTVCl4WzwqJP5ywFNzukO/8acb2b2cf872f3f5706c4bd63295ba31/placekitten.jpeg?w=1280&q=60&auto=format,compress'
+                                    }
+                                    className="card-img-top"
+                                    alt={pet.name}
+                                    style={{ height: '200px', objectFit: 'cover' }}
+                                />
 
-                            <div className="card-body d-flex flex-column">
-                                <h5 className="card-title">{pet.name}</h5>
+                                <div className="card-body d-flex flex-column">
+                                    <h5 className="card-title">{pet.name}</h5>
 
-                                <ul className="list-unstyled mb-3">
-                                    <li className="text-muted">{pet.breed}</li>
-                                    <li className="text-muted">{pet.details?.Tamano}</li>
-                                </ul>
+                                    <ul className="list-unstyled mb-3">
+                                        <li className="text-muted">{pet.breed}</li>
+                                        <li className="text-muted">{pet.details?.Tamano}</li>
+                                    </ul>
 
-                                <div className="mt-auto d-flex gap-2 justify-content-center action-bar">
-                                    <Link
-                                        to="/singleanimalview"
-                                        state={{ id: pet.id }}
-                                        className="btn btn-sm"
-                                        style={{ backgroundColor: "#00afaf" }}
-                                    >
-                                        Mas informacion
-                                    </Link>
+                                    <div className="mt-auto d-flex gap-2 justify-content-center action-bar">
+                                        <Link
+                                            to="/singleanimalview"
+                                            state={{ id: pet.id }}
+                                            className="btn btn-sm"
+                                            style={{ backgroundColor: "#00afaf" }}
+                                        >
+                                            Mas informacion
+                                        </Link>
 
-                                    <button
-                                        onClick={() => deleteMascota(pet.id)}
-                                        className="btn btn-outline-danger btn-sm"
-                                    >
-                                        Delete
-                                    </button>
+                                        {currentUserId && parseInt(currentUserId) === pet.user?.id && (
+                                            <button
+                                                onClick={() => deleteMascota(pet.id)}
+                                                className="btn btn-outline-danger btn-sm"
+                                            >
+                                                Delete
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

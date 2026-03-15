@@ -12,7 +12,8 @@
 }
 
 .button {
-  background-color: #00afaf; /* Un color púrpura personalizado */
+  background-color: #00afaf;
+  /* Un color púrpura personalizado */
   border-color: #00afaf;
 }
 
@@ -58,10 +59,12 @@ nav {
   overflow: hidden;
   box-shadow: var(--shadow);
 }
+
 .pet-card .carousel-item img {
   height: 320px;
   object-fit: cover;
 }
+
 .pet-card .carousel-control-prev-icon,
 .pet-card .carousel-control-next-icon {
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
@@ -90,6 +93,7 @@ nav {
   flex-wrap: wrap;
   gap: 0.4rem;
 }
+
 .pet-card .color-list p,
 .pet-card .mark-list p {
   background: var(--primary-light);
@@ -107,6 +111,7 @@ nav {
   box-shadow: var(--shadow);
   height: 300px;
 }
+
 .pet-card .text-muted {
   font-size: 0.9rem;
 }
@@ -129,7 +134,8 @@ nav {
 }
 
 .action-bar {
-  margin-top: auto;          /* keeps it pinned to the bottom inside flex containers */
+  margin-top: auto;
+  /* keeps it pinned to the bottom inside flex containers */
   display: flex;
   gap: 0.75rem;
   justify-content: center;
@@ -137,7 +143,8 @@ nav {
 
 /* base button shape */
 .action-bar .btn {
-  flex: 1;                   /* same width */
+  flex: 1;
+  /* same width */
   max-width: 160px;
   font-size: 0.875rem;
   font-weight: 600;
@@ -152,6 +159,7 @@ nav {
   border: 1px solid var(--accent);
   color: #fff;
 }
+
 .action-bar .btn[style*="background-color: #00afaf"]:hover {
   background-color: var(--accent-dark) !important;
   border-color: var(--accent-dark);
@@ -163,6 +171,7 @@ nav {
 .action-bar .btn-outline-danger {
   border-width: 2px;
 }
+
 .action-bar .btn-outline-danger:hover {
   background-color: var(--danger);
   border-color: var(--danger);
@@ -192,4 +201,68 @@ body {
 .register-filter {
   color: #00695c;
   letter-spacing: 0.5px;
+}
+
+/* ---------- PROACTIVE UI/UX ENHANCEMENTS ---------- */
+
+/* Smooth Card Hover Effect */
+.hover-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Empty State Container */
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  color: #00afaf;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.empty-state-title {
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-text {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Modern Spinner Configuration */
+.modern-spinner {
+  width: 3rem;
+  height: 3rem;
+  color: #00afaf;
+}
+
+.loading-container {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }

@@ -96,7 +96,7 @@ export const Home = () => {
 
 						<div className="row g-4 pt-3">
 							<div className="col-12 col-md-6">
-								<div className="card h-100 border-light shadow-sm p-3 rounded-4">
+								<div className="card h-100 border-0 shadow-sm p-3 rounded-4 hover-card">
 									<div className="card-body">
 										<div className="mb-3">
 											<i className="fa-solid fa-magnifying-glass fs-2 text-dark"></i>
@@ -109,7 +109,7 @@ export const Home = () => {
 								</div>
 							</div>
 							<div className="col-12 col-md-6">
-								<div className="card h-100 border-light shadow-sm p-3 rounded-4">
+								<div className="card h-100 border-0 shadow-sm p-3 rounded-4 hover-card">
 									<div className="card-body">
 										<div className="mb-3">
 											<i className="fa-solid fa-handshake-angle fs-2 text-dark"></i>
@@ -130,7 +130,7 @@ export const Home = () => {
 						<div className="row g-4">
 							<div className="col-md-6">
 								<Link to="/lostanimals" className="text-decoration-none">
-									<div className="card border-0 rounded-4 shadow-sm overflow-hidden">
+									<div className="card border-0 rounded-4 shadow-sm overflow-hidden hover-card">
 										<img src={Perros1} className="card-img-top" style={{ height: "300px", objectFit: "cover" }} />
 										<div className="card-body p-4">
 											<h5 className="fw-bold">Encontraste una mascota?</h5>
@@ -144,7 +144,7 @@ export const Home = () => {
 
 							<div className="col-md-6">
 								<Link to="/foundanimals" className="text-decoration-none">
-									<div className="card border-0 rounded-4 shadow-sm overflow-hidden">
+									<div className="card border-0 rounded-4 shadow-sm overflow-hidden hover-card">
 										<img src={Perros2} className="card-img-top" style={{ height: "300px", objectFit: "cover" }} />
 										<div className="card-body p-4">
 											<h5 className="fw-bold">Buscando una mascota perdida?</h5>

@@ -263,14 +263,14 @@ export const FilteredSearch = () => {
           </form>
         </div>
       </div>
-      {filtered.length > 0 && (
+      {filtered.length > 0 ? (
         <>
           <h5 className="ms-3 ms-md-5">Coincidencias ({filtered.length})</h5>
           <div className="container mb-5">
             <div className="row g-3">
               {filtered.map(p => (
                 <div key={p.id} className="col-12 col-sm-6 col-lg-4">
-                  <div className="card h-100">
+                  <div className="card h-100 shadow-sm hover-card border-0">
                     <img
                       src={p.images && p.images.length > 0
                         ? p.images[0]
@@ -297,6 +297,14 @@ export const FilteredSearch = () => {
             </div>
           </div>
         </>
+      ) : (
+        <div className="empty-state-container">
+          <i className="bi bi-search empty-state-icon"></i>
+          <h3 className="empty-state-title">No hay resultados</h3>
+          <p className="empty-state-text">
+            Prueba ajustando los filtros de búsqueda para encontrar más mascotas.
+          </p>
+        </div>
       )}
 
     </>

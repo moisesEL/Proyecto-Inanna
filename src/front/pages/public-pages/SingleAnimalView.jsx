@@ -103,176 +103,194 @@ export const SingleAnimalView = () => {
         }
     }, [isLoaded, pet]);
 
-    if (!pet) return <p>Mascota no encontrada</p>;
+    if (loading) return (
+        <div className="container loading-container">
+            <div className="spinner-border modern-spinner" role="status">
+                <span className="visually-hidden">Cargando...</span>
+            </div>
+            <p className="text-muted mt-2">Buscando información de la mascota...</p>
+        </div>
+    );
+
+    if (!pet) return (
+        <div className="container my-5">
+            <div className="empty-state-container">
+                <i className="bi bi-file-earmark-x empty-state-icon text-danger"></i>
+                <h3 className="empty-state-title">Mascota no encontrada</h3>
+                <p className="empty-state-text">
+                    La mascota que estás buscando no existe o ha sido eliminada.
+                </p>
+                <button className="btn btn-primary mt-3" onClick={() => navigate(-1)}>
+                    ← Volver atrás
+                </button>
+            </div>
+        </div>
+    );
 
     return (
-        <div className="">
-            <div className="container my-4">
-                <button className="btn btn-link mb-3" onClick={() => navigate(-1)}>
+        <div className="container my-4">
+            <div className="mb-3">
+                <button className="btn btn-link text-decoration-none px-0" onClick={() => navigate(-1)}>
                     ← Volver
                 </button>
             </div>
 
-            <div className="justify-content-center row col-12 d-flex">
+            <div className="row g-4 justify-content-center">
+                {/* MAIN CONTENT */}
+                <div className="col-12 col-lg-8">
+                    <div className="card shadow-sm mb-4">
+                        {Array.isArray(pet.images) && pet.images.length > 0 ? (
+                            <div id="carouselExample" className="carousel slide mb-3 carousel-dark ">
+                                <div className="carousel-inner">
+                                    {pet.images.map((url, index) => (
+                                        <div
+                                            key={index}
+                                            className={`background carousel-item ${index === 0 ? 'active' : ''}`}
 
-                <div className="container ms-5 row g-4 d-flex justify-content-center">
-                    {/* MAIN CONTENT */}
-                    <div className="col-md-6">
-                        <div className="card shadow-sm mb-4">
-                            {Array.isArray(pet.images) && pet.images.length > 0 ? (
-                                <div id="carouselExample" className="carousel slide mb-3 carousel-dark ">
-                                    <div className="carousel-inner">
-                                        {pet.images.map((url, index) => (
-                                            <div
-                                                key={index}
-                                                className={`background carousel-item ${index === 0 ? 'active' : ''}`}
-
-                                            >
-                                                <img
-                                                    src={url}
-                                                    className="d-block w-100 rounded my-3"
-                                                    alt={`Imagen ${index + 1} de ${pet.name}`}
-                                                    style={{
-                                                        maxHeight: 300,
-                                                        objectFit: 'contain',
-                                                        margin: '0 auto',
-                                                        display: 'block'
-                                                    }}
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    {pet.images.length > 1 && (
-                                        <>
-                                            <button
-                                                className="carousel-control-prev"
-                                                type="button"
-                                                data-bs-target="#carouselExample"
-                                                data-bs-slide="prev"
-                                            >
-                                                <span className="carousel-control-prev-icon" aria-hidden="true" />
-                                                <span className="visually-hidden">Previous</span>
-                                            </button>
-                                            <button
-                                                className="carousel-control-next"
-                                                type="button"
-                                                data-bs-target="#carouselExample"
-                                                data-bs-slide="next"
-                                            >
-                                                <span className="carousel-control-next-icon" aria-hidden="true" />
-                                                <span className="visually-hidden">Next</span>
-                                            </button>
-                                        </>
-                                    )}
-                                </div>
-                            ) : (
-                                <p className="text-muted">No hay imágenes disponibles</p>
-                            )}
-
-
-                            <div className="card-body">
-                                <div className="d-flex justify-content-between align-items-center mb-3">
-                                    <div>
-                                        <h2 className="fw-bold mb-0">{pet.name}</h2>
-                                        <small className="text-muted">{pet.found_location}</small>
-                                    </div>
-                                    {pet.found_location ? (
-                                        <span className="badge bg-danger">Perdido</span>
-                                    ) : (
-                                        <span className="badge bg-success">Encontrado</span>
-                                    )}
-
+                                        >
+                                            <img
+                                                src={url}
+                                                className="d-block w-100 rounded my-3"
+                                                alt={`Imagen ${index + 1} de ${pet.name}`}
+                                                style={{
+                                                    maxHeight: 300,
+                                                    objectFit: 'contain',
+                                                    margin: '0 auto',
+                                                    display: 'block'
+                                                }}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
 
-                                <div className="row text-center mb-4">
-                                    <Info label="Raza" value={pet.breed || "N/A"} />
-                                    <Info label="Tamaño" value={pet.details.Tamano || "N/A"} />
-                                    <Info label="Tipo de pelo" value={pet.details.Pelo || "N/A"} />
-                                    <Info l label={<i className="bi bi-gender-ambiguous"></i>} value={pet.details.Genero || "N/A"} />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="card shadow-sm mb-5">
-                            <div className="card-body">
-                                <Section title="Sobre mí">
-                                    {pet.description || "Esta mascota está buscando un hogar lleno de amor."}
-                                </Section>
-
-                                <Section title="Detalles físicos">
-                                    <div>
-                                        <ul>
-                                            <li>
-                                                <h5>Marcas</h5>
-                                                <p>{Array.isArray(pet.details.Marcas)
-                                                    ? pet.details.Marcas.join(', ')
-                                                    : pet.details.Marcas}
-                                                </p>
-                                            </li>
-
-                                            <li>
-                                                <h5>Color del pelaje</h5>
-                                                <p>{Array.isArray(pet.details.Color)
-                                                    ? pet.details.Color.join(', ')
-                                                    : pet.details.Color}
-                                                </p>
-                                            </li>
-
-                                            {/* …other <li>… */}
-                                        </ul>
-                                    </div>
-                                </Section>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* SIDEBAR */}
-                    <div className="col-md-2">
-                        <div className="card shadow-sm mb-4">
-                            <div className="card-body">
-                                <h5>Perfil de usuario</h5>
-                                <Link
-                                    to="/PublicProfilePage"
-                                    state={{ userId: pet.user.id }}
-                                    className="d-flex align-items-center gap-2 text-decoration-none text-dark"
-                                >
-                                    <img
-                                        src={
-                                            pet.user.prof_img ||
-                                            `https://ui-avatars.com/api/?name=${pet.user.name}&length=1`
-                                        }
-                                        className="rounded-circle border"
-                                        width="42"
-                                        height="42"
-                                        style={{ objectFit: "cover" }}
-                                    />
-                                    <span className="fw-semibold">@{pet.user.username}</span>
-                                </Link>
-                            </div>
-                        </div>
-                        <h5>Lugar donde se encontró</h5>
-                        <p className="text-muted">
-                            {address}
-                        </p>
-                        {pet.foundCoords ? (
-                            <div className="rounded overflow-hidden mb-5" style={{ height: 300 }}>
-                                <iframe
-                                    width="100%"
-                                    height="100%"
-                                    style={{ border: 0 }}
-                                    loading="lazy"
-                                    allowFullScreen
-                                    src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAJ36Mp6CXQ0u5bZpQuByVe1t5xZMam_bs&q=${pet.foundCoords.lat},${pet.foundCoords.lng}`}
-                                ></iframe>
+                                {pet.images.length > 1 && (
+                                    <>
+                                        <button
+                                            className="carousel-control-prev"
+                                            type="button"
+                                            data-bs-target="#carouselExample"
+                                            data-bs-slide="prev"
+                                        >
+                                            <span className="carousel-control-prev-icon" aria-hidden="true" />
+                                            <span className="visually-hidden">Previous</span>
+                                        </button>
+                                        <button
+                                            className="carousel-control-next"
+                                            type="button"
+                                            data-bs-target="#carouselExample"
+                                            data-bs-slide="next"
+                                        >
+                                            <span className="carousel-control-next-icon" aria-hidden="true" />
+                                            <span className="visually-hidden">Next</span>
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         ) : (
-                            <p>No se indicó ubicación</p>
+                            <p className="text-muted">No hay imágenes disponibles</p>
                         )}
+
+
+                        <div className="card-body">
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h2 className="fw-bold mb-0">{pet.name}</h2>
+                                    <small className="text-muted">{pet.found_location}</small>
+                                </div>
+                                {pet.found_location ? (
+                                    <span className="badge bg-danger">Perdido</span>
+                                ) : (
+                                    <span className="badge bg-success">Encontrado</span>
+                                )}
+
+                            </div>
+
+                            <div className="row text-center mb-4">
+                                <Info label="Raza" value={pet.breed || "N/A"} />
+                                <Info label="Tamaño" value={pet.details.Tamano || "N/A"} />
+                                <Info label="Tipo de pelo" value={pet.details.Pelo || "N/A"} />
+                                <Info l label={<i className="bi bi-gender-ambiguous"></i>} value={pet.details.Genero || "N/A"} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card shadow-sm mb-5">
+                        <div className="card-body">
+                            <Section title="Sobre mí">
+                                {pet.description || "Esta mascota está buscando un hogar lleno de amor."}
+                            </Section>
+
+                            <Section title="Detalles físicos">
+                                <div>
+                                    <ul>
+                                        <li>
+                                            <h5>Marcas</h5>
+                                            <p>{Array.isArray(pet.details.Marcas)
+                                                ? pet.details.Marcas.join(', ')
+                                                : pet.details.Marcas}
+                                            </p>
+                                        </li>
+
+                                        <li>
+                                            <h5>Color del pelaje</h5>
+                                            <p>{Array.isArray(pet.details.Color)
+                                                ? pet.details.Color.join(', ')
+                                                : pet.details.Color}
+                                            </p>
+                                        </li>
+
+                                        {/* …other <li>… */}
+                                    </ul>
+                                </div>
+                            </Section>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+                {/* SIDEBAR */}
+                <div className="col-12 col-lg-4">
+                    <div className="card shadow-sm mb-4">
+                        <div className="card-body">
+                            <h5>Perfil de usuario</h5>
+                            <Link
+                                to="/PublicProfilePage"
+                                state={{ userId: pet.user.id }}
+                                className="d-flex align-items-center gap-2 text-decoration-none text-dark"
+                            >
+                                <img
+                                    src={
+                                        pet.user.prof_img ||
+                                        `https://ui-avatars.com/api/?name=${pet.user.name}&length=1`
+                                    }
+                                    className="rounded-circle border"
+                                    width="42"
+                                    height="42"
+                                    style={{ objectFit: "cover" }}
+                                />
+                                <span className="fw-semibold">@{pet.user.username}</span>
+                            </Link>
+                        </div>
+                    </div>
+                    <h5>Lugar donde se encontró</h5>
+                    <p className="text-muted">
+                        {address}
+                    </p>
+                    {pet.foundCoords ? (
+                        <div className="rounded overflow-hidden mb-5" style={{ height: 300 }}>
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                loading="lazy"
+                                allowFullScreen
+                                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAJ36Mp6CXQ0u5bZpQuByVe1t5xZMam_bs&q=${pet.foundCoords.lat},${pet.foundCoords.lng}`}
+                            ></iframe>
+                        </div>
+                    ) : (
+                        <p>No se indicó ubicación</p>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };
