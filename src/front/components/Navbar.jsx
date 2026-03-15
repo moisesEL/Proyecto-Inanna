@@ -20,9 +20,21 @@ export const Navbar = () => {
 		<nav className="navbar navbar-expand-lg text-light color-text-light">
 			<div className="container-fluid text-light container">
 
-				<Link to="/" className="navbar-brand mx-5">
+				<Link to="/" className="navbar-brand mx-2 mx-md-5">
 					<img className="logo" src={Logo} alt="Logo Inanna" />
 				</Link>
+
+				<button
+					className="navbar-toggler ms-auto me-2"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span className="navbar-toggler-icon" style={{ filter: "invert(1)" }}></span>
+				</button>
 
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 

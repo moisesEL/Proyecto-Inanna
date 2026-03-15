@@ -128,8 +128,8 @@ export const ProfilePage = () => {
     if (!user) return <p>Cargando...</p>;
 
     return (
-        <div className="m-5 d-flex justify-content-center">
-            <div className="card shadow-lg p-4" style={{ width: "28rem", borderRadius: "15px" }}>
+        <div className="my-4 mx-2 mx-md-5 d-flex justify-content-center">
+            <div className="card shadow-lg p-4 w-100" style={{ maxWidth: "28rem", borderRadius: "15px" }}>
                 <div className="text-center mb-3">
                     {loading ? (<img
                         src={user.prof_img || "sin perfil"}

@@ -52,7 +52,7 @@ export const Home = () => {
 	}, []);
 
 	return (
-		<div className="container my-5">
+		<div className="container my-3 my-md-5">
 
 			<div className="row justify-content-center mb-5">
 				<div className="col-lg-10">
@@ -87,15 +87,15 @@ export const Home = () => {
 						</div>
 					</div>
 
-					<div className="mb-5 pt-5">
+					<div className="mb-5 pt-4 pt-md-5">
 						<h5 className="fw-bold mb-3 text-center text-dark">Como funciona?</h5>
 						<h2 className="fw-bold mb-4 text-center">Encuentra a tu mascota en dos pasos</h2>
 						<p className="text-muted mb-3 text-center">
 							Nuestra plataforma ayuda el proceso de búsqueda y adopción de mascotas, haciendo que sea más fácil que nunca traer un nuevo compañero a tu vida.
 						</p>
 
-						<div className="row col-sm g-4 pt-5">
-							<div className="col-sm">
+						<div className="row g-4 pt-3">
+							<div className="col-12 col-md-6">
 								<div className="card h-100 border-light shadow-sm p-3 rounded-4">
 									<div className="card-body">
 										<div className="mb-3">
@@ -108,7 +108,7 @@ export const Home = () => {
 									</div>
 								</div>
 							</div>
-							<div className="col-sm">
+							<div className="col-12 col-md-6">
 								<div className="card h-100 border-light shadow-sm p-3 rounded-4">
 									<div className="card-body">
 										<div className="mb-3">
